@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About{% endblock title%}
+{% block content%}
+    <main>
+       <!-- Section Top -->
+        <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+
+                    <h1 class="text-white text-center ">About Us</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp;  <i
+                                class="fas fa-long-arrow-alt-right text-white"></i> &nbsp; &nbsp;<a href="{% url 'about' %}"
+                                class="a-tag text-white">About Us</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Top Section -->
+        <section class="mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <img src="{% static 'assets/img/owner.jpg' %}" width="100%;" alt="">
+                    </div>
+                    <div class="col-lg-6 col-md-6 mt-3">
+                        <h5 >A Team That Feels Whole Lot Like A Family</h5>
+                        <p class="mt-3">
+                            We opened our doors in 1995, and that first day we sold out of every baked good by noon.
+                            Over the last twenty years, we’ve learned a few things (like how to keep up with demand!),
+                            but are honored to still delight some of those very same customers.
+                        </p>
+                        <p class="mt-4">
+                            We, Dinesh and Sita Sigdel, are the husband and wife founding team behind Opera Cakes &
+                            Bakes. Dinesh is our master baker and Sita is our strategic leader. We’re proud to have
+                            built a team of bakers and service professionals who delight in taking care of each other
+                            and serving our community.
+                        </p>
+                        <h5>We Love Being A Bakery</h5>
+                        <p>
+                            To us, a bakery is everything that’s right with a neighborhood. We love working dough in the
+                            early hours of the morning, the satisfyingly straight rows of baguette, and
+                            too-adorable-to-eat cupcakes. We love putting smiles on the faces of little ones, prepping
+                            for the big meeting with a great breakfast, and giving an excuse to lingering with an old
+                            friend. We love every single minute of being your tinthana neighborhood bakery.
+                        </p>
+                        <h6 class="text-dark mt-3">“DESERT IS LIKE A FEEL-GOOD SONG AND THE BEST ONES MAKE YOU DANCE.”</h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+{% endblock content%}

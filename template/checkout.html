@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <!--Start Top Section  -->
+        <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+
+                    <h1 class="text-white text-center ">Checkout</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
+                                class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'checkout' %}"
+                                class="a-tag text-white">Checkout</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Top Section  -->
+
+        <!-- Cart -->
+        {% if cartall %}
+        <section class="mt-5">
+            <div class="container">
+
+
+                <div class="row" style="overflow-x: auto; overflow-y: auto; height: 200px;">
+                    <table class="table" id="myTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Unit Price</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for ca in cartall %}
+                            <tr>
+                                <td>{{ca.cartproduct.product_name}}</td>
+                                <td>
+                                    <div class="row">
+                                        <p>{{ca.description}}</p>
+                                    </div>
+                                    <div class="row">
+                                        <p>{{ca.cake_description}}</p>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <p>{{ca.quantity}}</p>
+                                </td>
+                                <td>Rs <span class="unitprice">{{ca.cartproduct.product_price}}</span></td>
+                                <td>Rs <span class="amt">{% widthratio ca.cartproduct.product_price 1 ca.quantity %}</span></td>
+<!--                                {% widthratio ca.cartproduct.product_price 1 2 %}-->
+<!--                                -->
+
+                            </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mb-5" style="float: right;">
+                    <h5>Total = Rs <span class="tot">{{totalcart}}</span></h5>
+
+                </div>
+
+
+
+
+
+            </div>
+        </section>
+        <!-- End  -->
+
+
+        <!-- Checkout -->
+        <section>
+            <div class="container">
+                <div class="row justify-content-end mt-5" style="width: 100%;">
+                    <!-- Button trigger modal -->
+                    {% if previousorder %}
+                    <button type="button" style="width: 200px;" disabled class="btn primarybg text-white" data-toggle="modal"
+                        data-target="#exampleModalCenter">Checkout</button>
+                    {% else %}
+                    <button type="button" style="width: 200px;" class="btn primarybg text-white" data-toggle="modal"
+                        data-target="#exampleModalCenter">Checkout</button>
+                    {% endif %}
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content" style="max-height: 100%; overflow-y: auto;">
+                            <div class="modal-header justify-content-end">
+                                <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5> -->
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row justify-content-center mt-0">
+                                        <div class="col-11 col-sm-9 col-md-12 col-lg-12 text-center p-0 mt-3 mb-2">
+                                            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                                                <h2 class="text-dark"><strong>Checkout</strong></h2>
+                                                <p>Fill all form field to go to next step</p>
+                                                <div class="row">
+                                                    <div class="col-md-12 mx-0">
+                                                        <div id="msform" >
+                                                            <!-- progressbar -->
+                                                            <ul id="progressbar">
+                                                                <li class="active" id="account"><strong>Account</strong>
+                                                                </li>
+                                                                <li id="personal"><strong>Delivery Information</strong>
+                                                                </li>
+                                                                <li id="order"><strong>Place Order</strong></li>
+                                                                <li id="payment"><strong>Payment</strong></li>
+                                                                <li id="confirm"><strong>Finish</strong></li>
+
+                                                            </ul> <!-- fieldsets -->
+                                                            <fieldset>
+                                                                <div class="form-card">
+                                                                    <h2 class="fs-title">Account Information</h2>
+                                                                    {% if "id" in request.session %}
+                                                                    <p>{{request.session.name}}</p>
+                                                                    {% else %}
+                                                                    <p>Please <a href="{% url 'login' %}">login/signup</a> to
+                                                                        continue</p>
+                                                                    {% endif %}
+                                                                </div>
+                                                                {% if "id" not in request.session %}
+                                                                <input  type="button" name="next" disabled
+                                                                    class="next action-button"  value="Next Step" />
+                                                                {% else %}
+                                                                <input  type="button" name="next"
+                                                                    class="next action-button"  value="Next Step" />
+                                                                {% endif %}
+                                                            </fieldset>
+                                                            <fieldset>
+                                                                <div class="form-card">
+                                                                    <h2 class="fs-title">Delivery Information</h2>
+
+                                                                    <p id="deliveryInformationError"
+                                                                        class="text-danger font-italic"></p>
+                                                                    <input class="checkout_name" type="text" name="fullname"
+                                                                        placeholder="Full Name" />
+
+                                                                    <input type="text" class="checkout_address" name="dAddress"
+                                                                        placeholder="Delivery Address" />
+                                                                    <input type="date" class="checkout_ddate"  name="dDate" />
+                                                                    <input type="number" maxlength="10" class="checkout_phno" name="phno"
+                                                                        placeholder="Contact No." />
+                                                                </div>
+                                                                <input type="button" name="previous"
+                                                                    class="previous action-button-previous"
+                                                                    value="Previous" />
+                                                                <input type="button" name="dinformation"
+                                                                    class="validatedelivery  action-button"
+                                                                    value="Next Step" />
+
+                                                            </fieldset>
+                                                            <fieldset>
+                                                                <div class="form-card">
+                                                                    <h2 class="fs-title">Place Order</h2>
+                                                                    <table class="table">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">Product</th>
+                                                                                <th scope="col">Quantity</th>
+                                                                                <th scope="col">Unit Price</th>
+                                                                                <th scope="col">Amount</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {% for pd in cartall %}
+                                                                            <tr>
+                                                                                <th>{{pd.cartproduct.product_name}}</th>
+                                                                                <td>{{pd.quantity}}</td>
+                                                                                <td>Rs <span>{{pd.cartproduct.product_price}}</span></td>
+                                                                                <td>Rs <span>{% widthratio pd.cartproduct.product_price 1 pd.quantity %}</span></td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="row mt-3" style="width: 100%;">
+                                                                        <div class="col-lg-12 justify-content-end">
+                                                                            <h5 class="text-black-50">Total= Rs
+                                                                                <span>{{totalcart}}</span>
+                                                                            </h5>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <input type="button" name="previous"
+                                                                    class="previous action-button-previous"
+                                                                    value="Previous" />
+
+                                                                <input type="button" name="next"
+                                                                    class="next action-button" value="Next Step" />
+                                                            </fieldset>
+                                                            <fieldset>
+                                                                <div class="form-card text-center">
+                                                                    <h2 class="fs-title text-center">Payment Information
+                                                                    </h2>
+                                                                    <form action="https://uat.esewa.com.np/epay/main" method="POST">
+                                                                        <input value="{{totalcart}}" name="tAmt" type="hidden">
+                                                                        <input value="{{totalcart}}" name="amt" type="hidden">
+                                                                        <input value="0" name="txAmt" type="hidden">
+                                                                        <input value="0" name="psc" type="hidden">
+                                                                        <input value="0" name="pdc" type="hidden">
+                                                                        <input value="EPAYTEST" name="scd" type="hidden">
+                                                                        <input value="{{ request.session.id }}{{orderid}}{{uniquenumber}}" name="pid" type="hidden">
+                                                                        <input value="http://127.0.0.1:8000/esewapaymentsuccess/" type="hidden" name="su">
+                                                                        <input value="http://127.0.0.1:8000/checkout/" type="hidden" name="fu">
+                                                                        <input value="Pay With E-Sewa" data-index="{{request.session.id}}" class="btn btn-success saveordertemporary" type="submit">
+                                                                    </form>
+                                                                </div>
+                                                                <input type="button" name="previous"
+                                                                    class="previous action-button-previous"
+                                                                    value="Previous" /> <input type="button"
+                                                                    name="make_payment"
+                                                                    class=" checkout_final validatepayment action-button"
+                                                                   value="Home Delivery" style="width:200px;" />
+                                                            </fieldset>
+
+                                                            <fieldset>
+                                                                <div class="form-card">
+                                                                    <h2 class="fs-title text-center">Success !</h2>
+                                                                    <br><br>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-3"> <img
+                                                                                src="{% static 'assets/img/ok.png'  %}"
+                                                                                class="fit-image"> </div>
+                                                                    </div> <br><br>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-7 text-center">
+                                                                            <h5>Thank You! You will get call shortly and
+                                                                                keep updated with email.</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Checkout -->
+
+        {% else %}
+        <div class="container">
+            <h1 class="mt-5">No Item Added</h1>
+        </div>
+
+        {% endif %}
+    </main>
+{% endblock content %}
