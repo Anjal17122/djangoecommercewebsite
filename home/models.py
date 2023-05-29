@@ -14,8 +14,8 @@ class Product(models.Model):
     product_short_description = models.TextField(max_length=150)
     product_long_description = models.TextField(max_length=300)
     image1 = models.ImageField(upload_to='product')
-    image2 = models.ImageField(upload_to='product')
-    image3 = models.ImageField(upload_to='product')
+    image2 = models.FileField(upload_to='product', blank=True, null=True)
+    image3 = models.ImageField(upload_to='product', blank=True, null=True)
     def __str__(self):
         return self.product_name
 class Today_Special(models.Model):
@@ -102,4 +102,11 @@ class temporary_order_store(models.Model):
     deliveryaddress = models.CharField(max_length=400)
     deliverydate = models.DateField()
     phoneno = models.CharField(max_length=10)
+
+class VideoComment(models.Model):
+    productid = models.ForeignKey(Product,on_delete=models.CASCADE)
+    comment_date = models.CharField(max_length=400)
+    comment_by = models.CharField(max_length=400)
+    comment = models.CharField(max_length=900, default="This is great")
+
 

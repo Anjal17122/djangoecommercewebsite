@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from home.views import index,about,cart,checkout,contact,faq,viewlogin,productdetail,recepies,recepiedetail,categorydetail,check,logout,viewsubmitreview,account_verification,view_add_to_cart,cartremove,cartqtyupdate,checkoutadd,esewapayment,checkouradditionalinformation
+from home.views import index,about,cart,checkout,contact,faq,viewlogin,productdetail,recepies,recepiedetail,categorydetail,check,logout,viewsubmitreview,account_verification,view_add_to_cart,cartremove,cartqtyupdate,checkoutadd,esewapayment,checkouradditionalinformation,video_comment_save
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
     path('cartquantityupdate/',cartqtyupdate,name='cartquantityupdate'),
     path('checkoutorder/',checkoutadd,name='checkoutorder'),
     path('esewapaymentsuccess/',esewapayment,name='esewapayment'),
+    path('videocomment/',video_comment_save,name='videocomment'),
     path('addtemporaryorder/',checkouradditionalinformation,name='checkourtemporaryorder'),
 
 

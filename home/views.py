@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.shortcuts import redirect
-from home.models import Product,Category,Today_Special,Featured_product_of_month,Recepie,FAQ,Youtube_Link,login_register,review,email_verification,add_to_cart,guestcart,checkout_order,temporary_order_store
+from home.models import Product,Category,Today_Special,Featured_product_of_month,Recepie,FAQ,Youtube_Link,login_register,review,email_verification,add_to_cart,guestcart,checkout_order,temporary_order_store,VideoComment
 from .forms import register,login,formcontact
 import datetime
 from django.core.mail import BadHeaderError, send_mail
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 import uuid
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
 from django.conf import settings
@@ -157,7 +157,7 @@ def checkoutadd(request):
 def view_add_to_cart(request):
     productid = request.POST.get("pid")
     quantityy = request.POST.get("quantity")
-    description = request.POST.get("description")
+    description = "abc"
     cakename = request.POST.get("cakename")
     size = request.POST.get("size")
     fulldescription = ""
@@ -271,8 +271,22 @@ def productdetail(request,pk):
     rproduct = Product.objects.filter(product_category = product.product_category_id)[0:4]
     context['product']=product
     context['rproduct'] = rproduct
-
+    comments = VideoComment.objects.filter(productid_id = pk)
+    context['comments'] = comments
     return render(request, "productdetail.html",context)
+
+def video_comment_save(request):
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        comment = request.POST.get("comment")
+        comment_by_name = request.session['name']
+        mydate = datetime.datetime.now()
+        short_date = mydate.strftime("%b-%d-%Y")
+        product = Product.objects.get(id=int(product_id))
+        VideoComment.objects.create(productid=product,comment=comment,comment_date=short_date,comment_by=comment_by_name)
+        return HttpResponseRedirect('/productdetail/'+product_id+'/')
+    return redirect('home')
+
 def recepiedetail(request,rd):
     context = {}
     recepie = Recepie.objects.get(id=rd)

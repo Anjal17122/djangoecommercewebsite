@@ -5,19 +5,6 @@
 
     <main>
         <!--Start Top Section  -->
-        <section class="top">
-            <div class="container-fluid contain primarybg">
-                <div class="container mt-5">
-
-                    <h1 class="text-white text-center ">Product Details</h1>
-                    <div class="text-center text-white">
-                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
-                                class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'home' %}"
-                                class="a-tag text-white">Product Details</a></h6>
-                    </div>
-                </div>
-            </div>
-        </section>
         <!-- End Top Section  -->
 {% if messages %}
     {% for message in messages %}
@@ -31,214 +18,125 @@
 {% endif %}
         <!-- Product Detail -->
         <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7 col-lg-7">
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="row">
-                                    <img src="{{ product.image1.url }}" alt="product1" width="100%;"
-                                        class="mt-3 small-product">
-                                </div>
-                                <div class="row">
-                                    <img src="{{ product.image2.url }}" alt="product1" width="100%;"
-                                        class="mt-2 small-product">
-                                </div>
-                                <div class="row">
-                                    <img src="{{product.image3.url }}" alt="product1" width="100%;"
-                                        class="mt-2 small-product">
-                                </div>
-                            </div>
-
-                            <div class="col-9">
-                                <img src="{{product.image1.url}}" alt="product1" width="95%;" class="mt-3"
-                                    id="mainproduct">
-
-                            </div>
-                        </div>
+            <div class="container mt-3" >
+                <div class="row" style="background-color:#eeeee4;">
+                    <div class="col-md-2 col-lg-2"></div>
+                    <div class="col-md-8 col-lg-8" >
+                        <video
+                              controls
+                              loop
+                              autoplay
+                              muted
+                              src="{{product.image2.url}}"
+                              width="100%"
+                              height="600px"
+                              poster="{{product.image1.url}}"
+                        ></video>
                     </div>
-                    <div class="col-md-5 col-lg-5  mt-5">
-                        <h5 class="text-dark mt-5">{{product.product_name}}</h5>
-                        <hr>
-                        <h6>Rs {{product.product_price}}</h6>
-                        <p class="mt-3">
-                            {{product.product_short_description}}
-                        </p>
-                        <p class="mt-4">{{product.product_long_description}}</p>
-<!--                        {% url 'addtocart' %}-->
-                        <form action="" method="">
-                            {% csrf_token %}
+                    <div class="col-md-2 col-lg-2"></div>
+                </div>
+                <div class="row">
+                            <h5 class="text-dark mt-2">{{product.product_name}}</h5>
+                    <p>{{product.product_short_description}}</p>
+                </div>
+                <div class="row" style="background-color:grey;">
+                    <div class="wrapper">
+                      <div class="tabs">
+                        <div class="tab">
+                          <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+                          <label for="tab-1" class="tab-label">Description</label>
+                          <div class="tab-content">
+                                {{product.product_long_description}}
+        <!--                        {% url 'addtocart' %}-->
+                                <form action="" method="">
+                                    {% csrf_token %}
 
-                            {% if product.product_category|lower == "cake"%}
-                                <div class="form-group">
-                                <label>What to write on your cake?</label>
-                                <input type="text" maxlength="200" class="form-control cakename-id{{product.id}}" placeholder="Max 200 character" name="cakename">
-                            </div>
-                                <div class="form-group">
-                                <label>Size (In Pounds)</label>
-                                <input type="number" class="form-control cakesize-id{{product.id}}" name="size">
-                                 <span class="text-danger sizeerror{{product.id}}" ></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="itemdescription">Additional Information</label>
-                                <textarea class="form-control description-id{{product.id}}" name="description" id="itemdescription" rows="3"></textarea>
-                            </div>
-                            {% else %}
-                            <div class="form-group">
-                                <label for="cakedescription">Additional Information</label>
-                                <textarea class="form-control description-id{{product.id}}" name="description" id="cakedescription" rows="3"></textarea>
-                            </div>
-                            {% endif %}
-
-                            <div class="row mt-5">
-
-                                <div class="col-md-6 col-lg-6 d-flex mt-2 button-container">
-                                    <a class="bg-light border  btn btn1hover  qtyadd" type="button" value="+"
-                                        style="font-size: xx-large;">+</a>
-                                    <input type="text" value="1" min="1" name="quantity"
-                                        class="form-control quantity text-center pquantity_id{{product.id}}">
-                                    <a class="bg-light border  btn btn1hover  qtysub" type="button" value="-"
-                                        style="font-size: xx-large;">-</a>
-                                </div>
-                                <div class="col-md-6 col-lg-6 mt-2">
-                                    <input type="button" data-index="{{product.id}}" class="border px-5 py-3 btn primarybg text-white ajax_cart" value="Add To Cart">
-                                </div>
+                                    <div class="row mt-2" style="width:100%;">
+                                        <div class="col-md-12 col-lg-12 d-flex button-container">
+                                            <input type="hidden" value="1" min="1"  name="quantity"
+                                                class="form-control quantity text-center pquantity_id{{product.id}}">
+                                        </div>
+                                        <div class="col-md-6 col-lg-6">
+                                            {% if "name" in request.session %}
+                                            <input type="button" data-index="{{product.id}}" class="border px-5 py-3 btn primarybg text-white ajax_cart" value="Add to Wishlist">
+                                            {% else %}
+                                            <input type="button" disabled data-index="{{product.id}}" class="border px-5 py-3 btn primarybg text-white ajax_cart" value="Add to Wishlist">
+                                            {% endif %}
+                                        </div>
 
 
-                            </div>
-                        </form>
+                                    </div>
+                                </form>
+
+                          </div>
+                        </div>
+                        <div class="tab">
+                          <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+                          <label for="tab-2" class="tab-label">Comments</label>
+                          <div class="tab-content">
+                              <div class="comments">
+<!--                                    <div class="container">-->
+                                        <div class="d-flex justify-content-center row">
+                                            <div class="col-md-12">
+                                                <div class="d-flex flex-column comment-section">
+                                                    <div class="comment-only">
+                                                        {% for c in comments %}
+                                                        <div class="bg-white p-2">
+                                                            <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                                                <div class="d-flex flex-column justify-content-start ml-2">
+                                                                    <span class="d-block font-weight-bold name">{{c.comment_by}}</span>
+                                                                    <span class="date text-black-50">Shared publicly: {{c.comment_date}}</span></div>
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <p class="comment-text">
+                                                                    {{c.comment}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+<!--                                                        <div class="bg-white">-->
+<!--                                                            <div class="d-flex flex-row fs-12">-->
+<!--                                                                <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+                                                    </div>
+                                                    <div class="bg-light p-2">
+                                                        <form action="{% url 'videocomment' %}" method="post" novalidate>
+                                                            {% csrf_token %}
+                                                        <div class="d-flex flex-row align-items-start">
+                                                            <img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                                            <textarea class="form-control ml-1 shadow-none textarea" name="comment"></textarea>
+                                                            <input type="hidden" name="product_id" value="{{product.id}}">
+                                                        </div>
+                                                        <div class="mt-2 text-right">
+                                                            {% if "name" in request.session %}
+                                                            <input class="btn btn-primary btn-sm shadow-none" type="submit" value="Post Comment">
+                                                            {% else %}
+                                                            <input class="btn btn-primary btn-sm shadow-none" disabled value="Post Comment">
+                                                            {% endif %}
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+<!--                                      </div>-->
+                              </div>
+                          </div>
+                        </div>
+                        <div class="tab">
+                          <input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
+                          <label for="tab-3" class="tab-label">Tab Three</label>
+                          <div class="tab-content">When I left Mr. Bates, I went down to my father: where, by the assistance of him and my uncle John, and some other relations, I got forty pounds, and a promise of thirty pounds a year to maintain me at Leyden: there I studied physic two years and seven months, knowing it would be useful in long voyages.</div>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- End product details -->
 
-        <!-- Related Product -->
-        <section>
-            <div class="container">
-                <div class="row ">
-                    <h3 class="text-center">
-                        Related Product
-                    </h3>
-                    <hr>
-                </div>
-               <div class="row d-flex">
-                    {% for pd in rproduct %}
-                        {% if pd.id != product.id %}
-                    <div class="col-lg-4  col-md-4">
-                        <div class="card choice border-0 position-relative" style="width: 100%; ">
-                            <a href="{% url 'productdetail' pd.id%}"><img class="card-img-top" src="{{ pd.image1.url }}" alt="Card image cap"></a>
 
-                            {% with pd.id|stringformat:'s' as idstring %}
-                            {% with  pd.product_name|slice:':3'|add:idstring as id%}
-                            <button type="button"
-                                class="a-tag primarybg text-white px-4 py-3 border-0 btnQuickShop position-absolute"
-                                data-bs-toggle="modal" data-bs-target="#{{id}}">Quick
-                                Shop
-<!--                                {{pd.product_name|slice:':3'|add:'ab'}}-->
-                            </button>
-                            {% endwith %}
-                            {% endwith %}
-                            <div class="card-body">
-                                <a href="{% url 'productdetail' pd.id%}" class="a-tag"><h5 class="card-title text-center text-dark">Rs {{pd.product_price}}</h5></a>
-                                <a href="{% url 'productdetail' pd.id%}" class="a-tag"><p class="card-text text-dark text-center">{{pd.product_name}}</p></a>
-                            </div>
-                        </div>
-
-                    </div>
-                    {% with pd.id|stringformat:'s' as idstring %}
-                            {% with  pd.product_name|slice:':3'|add:idstring as id%}
-                    <div class="modal fade" id="{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                            {% endwith%}
-                        {% endwith %}
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-                            <div class="modal-content" style="height:100%; overflow-y: auto;">
-                                <div class="modal-header justify-content-end">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="container-fluid">
-
-                                        <div class="row pb-1">
-                                            <div class="col-md-12 col-lg-7">
-                                                <div class="row">
-
-
-                                                    <div class="col-12">
-                                                        <img src="{{pd.image1.url}}" alt="product1" width="95%;" class="mainproduct">
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12 col-lg-5 ">
-                                                <h5 class="text-dark mt-1">{{pd.product_name}}</h5>
-                                                <hr>
-                                                <h6>Rs {{pd.product_price}}</h6>
-                                                <p class="mt-1">{{pd.product_short_description}}</p>
-                                                <p class="mt-0">{{pd.product_long_description}}</p>
-                                                <a href="{% url 'productdetail' pd.id%}">View Full Details</a>
-                                                <div class="row mt-0">
-                                                    <form action="" method="">
-                                                        {% csrf_token %}
-
-                                                        {% if pd.product_category|lower == "cake"%}
-                                                            <div class="form-group">
-                                                            <label>What to write on your cake?</label>
-                                                            <input type="text" maxlength="200" class="form-control cakename-id{{pd.id}}" placeholder="Max 200 character" name="cakename">
-                                                        </div>
-                                                            <div class="form-group">
-                                                            <label>Size (In Pounds)</label>
-                                                            <input type="number" class="form-control cakesize-id{{pd.id}}" name="size">
-                                                             <span class="text-danger sizeerror{{pd.id}}" ></span>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="itemdescription">Additional Information</label>
-                                                            <textarea class="form-control description-id{{pd.id}}" name="description"  rows="3"></textarea>
-                                                        </div>
-                                                        {% else %}
-                                                        <div class="form-group">
-                                                            <label for="cakedescription">Additional Information</label>
-                                                            <textarea class="form-control description-id{{pd.id}}" name="description" rows="3"></textarea>
-                                                        </div>
-                                                        {% endif %}
-
-                                                        <div class="row mt-5">
-
-                                                            <div class="col-md-6 col-lg-6 d-flex mt-2 button-container">
-                                                                <a class="bg-light border  btn btn1hover  qtyadd" type="button" value="+"
-                                                                    style="font-size: xx-large;">+</a>
-                                                                <input type="text" value="1" min="1" name="quantity"
-                                                                    class="form-control quantity text-center pquantity_id{{pd.id}}">
-                                                                <a class="bg-light border  btn btn1hover  qtysub" type="button" value="-"
-                                                                    style="font-size: xx-large;">-</a>
-                                                            </div>
-                                                            <div class="col-md-6 col-lg-6 mt-2">
-                                                                <input type="button" data-index="{{pd.id}}" class="border px-5 py-3 btn primarybg text-white ajax_cart" value="Add To Cart">
-                                                            </div>
-
-
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-
-        </section>
-        <!-- End related product -->
     </main>
 
 {% endblock content %}
