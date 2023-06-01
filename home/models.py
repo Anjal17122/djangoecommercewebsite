@@ -65,6 +65,7 @@ class add_to_cart(models.Model):
     description = models.TextField(default="No description")
     cake_description = models.CharField(max_length=400, default="Not a cake!")
     create_date = models.DateField(default=timezone.now())
+
 class guestcart(models.Model):
     cartproduct = models.ForeignKey(Product, on_delete=models.CASCADE)
     guestuser = models.CharField(max_length=200)
