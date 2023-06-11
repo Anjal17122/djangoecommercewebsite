@@ -10,12 +10,11 @@ class Category(models.Model):
 class Product(models.Model):
     product_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=100)
-    product_price = models.PositiveIntegerField()
+    product_price = models.CharField(max_length=200)
     product_short_description = models.TextField(max_length=150)
     product_long_description = models.TextField(max_length=300)
     image1 = models.ImageField(upload_to='product')
     image2 = models.FileField(upload_to='product', blank=True, null=True)
-    image3 = models.ImageField(upload_to='product', blank=True, null=True)
     def __str__(self):
         return self.product_name
 class Today_Special(models.Model):

@@ -71,7 +71,7 @@
                                 <li class="nav-item dropdown" >
                                     <a class="nav-link navhover text-dark " href="#" id="navbarDropdown" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        Order Online <i class="fas fa-angle-down"></i>
+                                        Matches <i class="fas fa-angle-down"></i>
                                     </a>
                                     <ul class="dropdown-menu text-center justify-content-center orderonlinedropdownchange"  aria-labelledby="navbarDropdown" >
                                         <li style="">
@@ -105,18 +105,18 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link navhover text-dark {% if request.path == re %}active{% endif %}" href="{% url 'recepie' %}">Recepies</a>
+                                    <a class="nav-link navhover text-dark {% if request.path == re %}active{% endif %}" href="{% url 'recepie' %}">News</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link navhover text-dark {% if request.path == faq %}active{% endif %}" href="{% url 'faq' %}">FAQ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link navhover text-dark " href="#">Services</a>
+                                    <a class="nav-link navhover text-dark " href="#">Live Streaming</a>
                                 </li>
                                 <li class="nav-item">
 
                                     <a class="nav-link navhover
-                                    text-dark {% if request.path == contact %}active{% endif %}" href="{% url 'contact' %}">Contact Us </a>
+                                    text-dark {% if request.path == contact %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -151,7 +151,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link navhover text-dark {% if request.path == cart %}active{% endif %}" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i>
-                                    cart(<span class="text-danger cartitemlength">{{cartitemlength}}</span>)</a>
+                                    Wishlist(<span class="text-danger cartitemlength">{{cartitemlength}}</span>)</a>
                             </li>
 
                             <li class="nav-item">

@@ -255,7 +255,7 @@ def checkout(request):
         context["cartall"] = ""
         checkpreviousorder = True
     for c in context["cartall"]:
-        sum += c.cartproduct.product_price * c.quantity
+        sum += c.cartproduct.product_price
         order_i += str(c.id)
 
     context["totalcart"] = sum

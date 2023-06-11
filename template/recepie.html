@@ -7,11 +7,11 @@
             <div class="container-fluid contain primarybg">
                 <div class="container mt-5">
 
-                    <h1 class="text-white text-center ">Recepies</h1>
+                    <h1 class="text-white text-center ">News</h1>
                     <div class="text-center text-white">
                         <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
                                 class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'recepie' %}"
-                                class="a-tag text-white">Recepies</a></h6>
+                                class="a-tag text-white">News</a></h6>
                     </div>
                 </div>
             </div>
@@ -29,12 +29,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{r.recepie_name}}</h5>
                                 <p class="card-text">{{r.recepie_description|slice:":133"}}...</p>
-                                <a href="{% url 'recepiedetail' r.id %}" class="btn primarybg text-white">View Full Recepie</a>
+                                <a href="{% url 'recepiedetail' r.id %}" class="btn primarybg text-white">View Full News</a>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-
                 </div>
             </div>
         </section>
