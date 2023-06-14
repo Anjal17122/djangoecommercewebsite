@@ -60,4 +60,4 @@ class managecheckout(admin.ModelAdmin):
 
 
 
-admin.site.site_header = 'Opera Cakes And Bakes'
+admin.site.site_header = 'Fun Olympics Games'

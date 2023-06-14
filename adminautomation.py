@@ -11,6 +11,7 @@ category_quantity = 4
 productlist = [2,3,4,2]
 recepie_num = 4
 faq_num = 4
+
 Youtub_link = "https://www.youtube-nocookie.com/embed/qtlhdIfojmc?controls=0"
 lorem = "Lorem ipsum, dolor sit, amet, consectetur, adipiscing elit, sed do eiusmod ,tempor " \
         "incididunt ut, labore et dolore, magna aliqua. Ut enim ad, minim veniam, quis nostrud exercitation ,ullamco laboris" \
